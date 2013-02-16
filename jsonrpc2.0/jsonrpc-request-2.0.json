@@ -15,7 +15,7 @@
     "definitions": {
         "request": {
             "type": "object",
-            "required": [ "jsonrpc" ],
+            "required": [ "jsonrpc", "method" ],
             "properties": {
                 "jsonrpc": { "enum": [ "2.0" ] },
                 "method": {
