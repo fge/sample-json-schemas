@@ -19,21 +19,16 @@
             "properties": {
                 "jsonrpc": { "enum": [ "2.0" ] },
                 "method": {
-                    "note": "the fact that it must be a string is deduced here, not a guarantee",
                     "type": "string"
                 },
                 "id": {
-                    "type": [ "string", "integer", "null" ],
+                    "type": [ "string", "number", "null" ],
                     "note": [
-                        "spec says a number which should not contain a fractional part...",
-                        "We choose integer here, but this is unenforceable with some languages"
+                        "While allowed, null should be avoided: http://www.jsonrpc.org/specification#id1"
+                        "While allowed, a number with a fractional part should be avoided: http://www.jsonrpc.org/specification#id2"
                     ]
                 },
                 "params": {
-                    "note": [
-                        "spec says \"a structured value\", without any further precision...",
-                        "Therefore, by default, any array or object is allowed without any restriction"
-                    ] ,
                     "type": [ "array", "object" ]
                 }
             }
