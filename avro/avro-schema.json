@@ -1,0 +1,177 @@
+{
+    "title": "avro-schema",
+    "description": "JSON Schema for an Apache Avro schema, version 1.7.3",
+    "oneOf": [
+        {
+            "$ref": "#/definitions/primitiveTypes"
+        }
+    ],
+    "definitions": {
+        "primitiveTypes": {
+            "description": "One primitive type",
+            "enum": [ "null", "boolean", "int", "long", "float", "double", "bytes", "string" ]
+        },
+        "record": {
+            "description": "A record",
+            "notes": [
+                "what on Earth is a namespace? Where is it located?"
+            ],
+            "type": "object",
+            "required": [ "type", "name", "fields" ],
+            "properties": {
+                "type": { "enum": [ "record" ] },
+                "name": { "type": "string" },
+                "doc": { "type": "string" },
+                "aliases": {
+                    "notes": [
+                        "spec doesn't say whether this array can be empty",
+                        "spec doesn't say whether elements have to be unique"
+                    ],
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "fields": {
+                    "notes": [
+                        "spec doesn't say whether this array can be empty",
+                        "spec doesn't say whether elements have to be unique"
+                    ],
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/field" }
+                }
+            }
+        },
+        "field": {
+            "description": "One field in a record",
+            "type": "object",
+            "required": [ "name", "type" ],
+            "properties": {
+                "name": { "type": "string" },
+                "doc": { "type": "string" },
+                "type": {
+                    "notes": [ "TODO -- spec says \"a JSON Object defining a schema\""]
+                },
+                "default": {
+                    "description": "default value, depending on the type"
+                },
+                "order": {
+                    "enum": [ "ascending", "descending", "ignore" ]
+                },
+                "aliases": {
+                    "notes": [
+                        "spec doesn't say whether this array can be empty",
+                        "spec doesn't say whether elements have to be unique"
+                    ],
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        },
+        "enum": {
+            "description": "an enum as defined by the Avro specification",
+            "notes": [
+                "what on Earth is a namespace? Where is it located?"
+            ],
+            "type": "object",
+            "required": [ "type", "name", "symbols" ],
+            "properties": {
+                "type": { "enum": [ "enum" ] },
+                "name": { "type": "string" },
+                "aliases": {
+                    "notes": [
+                        "spec doesn't say whether this array can be empty",
+                        "spec doesn't say whether elements have to be unique"
+                    ],
+                    "type": "array",
+                    "items": { "type": "string" }
+                },
+                "doc": { "type": "string" },
+                "symbols": {
+                    "notes": [
+                        "spec says unique items, but what about empty?",
+                        "assuming it cannot"
+                    ],
+                    "type": "array",
+                    "minItems": 1,
+                    "items": { "type": "string" },
+                    "uniqueItems": true
+                }
+            }
+        },
+        "array": {
+            "description": "An array as defined by the Avro specification",
+            "notes": [ "spec doesn't say whether \"items\" is required!" ],
+            "type": "object",
+            "required": [ "type" ],
+            "properties": {
+                "type": { "enum": [ "array" ] },
+                "items": {
+                    "notes": [ "TODO: can be a full schema" ]
+                }
+            }
+        },
+        "map": {
+            "description": "A map as defined by the Avro specification",
+            "notes": [ "spec doesn't say whether \"values\" is required!" ],
+            "type": "object",
+            "required": [ "type" ],
+            "properties": {
+                "type": { "enum": [ "map" ] },
+                "values": {
+                    "notes": [ "TODO: can be a full schema" ]
+                }
+            }
+        },
+        "union": {
+            "description": "A union of schemas",
+            "notes": [
+            ],
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "notes": [
+                    "Any schema except a union itself",
+                    "TODO"
+                ]
+            }
+        },
+        "fixed": {
+            "description": "A fixed type, as defined by the Avro specification",
+            "notes": [
+                "what on Earth is a namespace? Where is it located?"
+            ],
+            "type": "object",
+            "required": [ "type", "name", "size" ],
+            "properties": {
+                "type": { "enum": [ "fixed" ] },
+                "name": { "type": "string" },
+                "size": {
+                    "notes": [
+                        "no minimum to size?",
+                        "deduction: must be strictly greater than 0"
+                    ],
+                    "type": "integer",
+                    "minimum": 0,
+                    "exclusiveMinimum": true
+                },
+                "aliases": {
+                    "notes": [
+                        "spec doesn't say whether this array can be empty",
+                        "spec doesn't say whether elements have to be unique"
+                    ],
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
+        },
+        "name": {
+            "description": "what a name can be",
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]+$"
+        },
+        "namespace": {
+            "description": "what a namespace can be",
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_](\\.[A-Za-z_][A-Za-z0-9_])+$"
+        }
+    }
+}
