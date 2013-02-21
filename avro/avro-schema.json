@@ -13,23 +13,14 @@
         },
         "record": {
             "description": "A record",
-            "notes": [
-                "what on Earth is a namespace? Where is it located?"
-            ],
             "type": "object",
             "required": [ "type", "name", "fields" ],
             "properties": {
                 "type": { "enum": [ "record" ] },
-                "name": { "type": "string" },
+                "name": { "$ref": "#/definitions/name" },
+                "namespace": { "$ref": "#/definitions/namespace" },
                 "doc": { "type": "string" },
-                "aliases": {
-                    "notes": [
-                        "spec doesn't say whether this array can be empty",
-                        "spec doesn't say whether elements have to be unique"
-                    ],
-                    "type": "array",
-                    "items": { "type": "string" }
-                },
+                "aliases": { "$ref": "#/definitions/aliases" },
                 "fields": {
                     "notes": [
                         "spec doesn't say whether this array can be empty",
@@ -45,7 +36,7 @@
             "type": "object",
             "required": [ "name", "type" ],
             "properties": {
-                "name": { "type": "string" },
+                "name": { "$ref": "#/definitions/name" },
                 "doc": { "type": "string" },
                 "type": {
                     "notes": [ "TODO -- spec says \"a JSON Object defining a schema\""]
@@ -56,34 +47,18 @@
                 "order": {
                     "enum": [ "ascending", "descending", "ignore" ]
                 },
-                "aliases": {
-                    "notes": [
-                        "spec doesn't say whether this array can be empty",
-                        "spec doesn't say whether elements have to be unique"
-                    ],
-                    "type": "array",
-                    "items": { "type": "string" }
-                }
+                "aliases": { "$ref": "#/definitions/aliases" }
             }
         },
         "enum": {
             "description": "an enum as defined by the Avro specification",
-            "notes": [
-                "what on Earth is a namespace? Where is it located?"
-            ],
             "type": "object",
             "required": [ "type", "name", "symbols" ],
             "properties": {
                 "type": { "enum": [ "enum" ] },
-                "name": { "type": "string" },
-                "aliases": {
-                    "notes": [
-                        "spec doesn't say whether this array can be empty",
-                        "spec doesn't say whether elements have to be unique"
-                    ],
-                    "type": "array",
-                    "items": { "type": "string" }
-                },
+                "name": { "$ref": "#/definitions/name" },
+                "namespace": { "$ref": "#/definitions/namespace" },
+                "aliases": { "$ref": "#/definitions/aliases" },
                 "doc": { "type": "string" },
                 "symbols": {
                     "notes": [
@@ -123,8 +98,6 @@
         },
         "union": {
             "description": "A union of schemas",
-            "notes": [
-            ],
             "type": "array",
             "uniqueItems": true,
             "items": {
@@ -136,14 +109,12 @@
         },
         "fixed": {
             "description": "A fixed type, as defined by the Avro specification",
-            "notes": [
-                "what on Earth is a namespace? Where is it located?"
-            ],
             "type": "object",
             "required": [ "type", "name", "size" ],
             "properties": {
                 "type": { "enum": [ "fixed" ] },
-                "name": { "type": "string" },
+                "name": { "$ref": "#/definitions/name" },
+                "namespace": { "$ref": "#/definitions/namespace" },
                 "size": {
                     "notes": [
                         "no minimum to size?",
@@ -153,14 +124,7 @@
                     "minimum": 0,
                     "exclusiveMinimum": true
                 },
-                "aliases": {
-                    "notes": [
-                        "spec doesn't say whether this array can be empty",
-                        "spec doesn't say whether elements have to be unique"
-                    ],
-                    "type": "array",
-                    "items": { "type": "string" }
-                }
+                "aliases": { "$ref": "#/definitions/aliases" }
             }
         },
         "name": {
@@ -172,6 +136,16 @@
             "description": "what a namespace can be",
             "type": "string",
             "pattern": "^[A-Za-z_][A-Za-z0-9_](\\.[A-Za-z_][A-Za-z0-9_])+$"
+        },
+        "aliases": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "oneOf": [
+                    { "$ref": "#/definitions/name" },
+                    { "$ref": "#/definitions/namespace" } ]
+            }
         }
     }
 }
