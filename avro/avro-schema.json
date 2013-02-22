@@ -2,7 +2,7 @@
     "title": "avro-schema",
     "description": "JSON Schema for an Apache Avro schema, version 1.7.3",
     "oneOf": [
-        { "$ref": "#/definitions/primitiveTypes" },
+        { "type": "string" },
         {
             "type": "object",
             "required": [ "type" ],
