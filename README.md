@@ -13,13 +13,13 @@ to stumble upon.</p>
 <ul>
     <li>JSON-RPC 2.0 (<a href="http://www.jsonrpc.org/specification">link to
     specification</a>);</li>
-    <li>GeoJSON (<a href="http://www.geojson.org/geojson-link to specification.html">spec</a>);</li>
+    <li>GeoJSON (<a href="http://www.geojson.org/geojson-spec.html">link to specification</a>);</li>
     <li>SMD (<a href="http://livedocs.dojotoolkit.org/dojox/rpc/smd">link to
     specification</a>);</li>
     <li>JSON Patch (<a href="http://tools.ietf.org/html/draft-ietf-appsawg-json-patch-10">link to
     specification</a>);</li>
-    <li>Avro Schema 1.7.3 (<a href="http://avro.apache.org/docs/current/link to
-    specification.html">link to specification</a>).</li>
+    <li>Avro Schema 1.7.3 (<a href="http://avro.apache.org/docs/current/spec.html">link to
+    specification</a>).</li>
 </ul>
 
 <p>Note: these schemas may not be perfect. I have used <a
