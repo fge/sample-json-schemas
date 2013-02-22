@@ -19,7 +19,7 @@ to stumble upon.</p>
     <li>JSON Patch (<a href="http://tools.ietf.org/html/draft-ietf-appsawg-json-patch-10">link to
     specification</a>);</li>
     <li>Avro Schema 1.7.3 (<a href="http://avro.apache.org/docs/current/link to
-    specification.html">spec</a>.</li>
+    specification.html">link to specification</a>).</li>
 </ul>
 
 <p>Note: these schemas may not be perfect. I have used <a
