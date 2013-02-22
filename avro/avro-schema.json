@@ -2,9 +2,20 @@
     "title": "avro-schema",
     "description": "JSON Schema for an Apache Avro schema, version 1.7.3",
     "oneOf": [
+        { "$ref": "#/definitions/primitiveTypes" },
         {
-            "$ref": "#/definitions/primitiveTypes"
-        }
+            "type": "object",
+            "required": [ "type" ],
+            "properties": {
+                "type": { "$ref": "#/definitions/primitiveTypes" }
+            }
+        },
+        { "$ref": "#/definitions/record" },
+        { "$ref": "#/definitions/enum" },
+        { "$ref": "#/definitions/array" },
+        { "$ref": "#/definitions/map" },
+        { "$ref": "#/definitions/union" },
+        { "$ref": "#/definitions/fixed" }
     ],
     "definitions": {
         "primitiveTypes": {
@@ -22,32 +33,9 @@
                 "doc": { "type": "string" },
                 "aliases": { "$ref": "#/definitions/aliases" },
                 "fields": {
-                    "notes": [
-                        "spec doesn't say whether this array can be empty",
-                        "spec doesn't say whether elements have to be unique"
-                    ],
                     "type": "array",
                     "items": { "$ref": "#/definitions/field" }
                 }
-            }
-        },
-        "field": {
-            "description": "One field in a record",
-            "type": "object",
-            "required": [ "name", "type" ],
-            "properties": {
-                "name": { "$ref": "#/definitions/name" },
-                "doc": { "type": "string" },
-                "type": {
-                    "notes": [ "TODO -- spec says \"a JSON Object defining a schema\""]
-                },
-                "default": {
-                    "description": "default value, depending on the type"
-                },
-                "order": {
-                    "enum": [ "ascending", "descending", "ignore" ]
-                },
-                "aliases": { "$ref": "#/definitions/aliases" }
             }
         },
         "enum": {
@@ -61,10 +49,6 @@
                 "aliases": { "$ref": "#/definitions/aliases" },
                 "doc": { "type": "string" },
                 "symbols": {
-                    "notes": [
-                        "spec says unique items, but what about empty?",
-                        "assuming it cannot"
-                    ],
                     "type": "array",
                     "minItems": 1,
                     "items": { "type": "string" },
@@ -79,9 +63,7 @@
             "required": [ "type" ],
             "properties": {
                 "type": { "enum": [ "array" ] },
-                "items": {
-                    "notes": [ "TODO: can be a full schema" ]
-                }
+                "items": { "$ref": "#" }
             }
         },
         "map": {
@@ -91,9 +73,7 @@
             "required": [ "type" ],
             "properties": {
                 "type": { "enum": [ "map" ] },
-                "values": {
-                    "notes": [ "TODO: can be a full schema" ]
-                }
+                "values": { "$ref": "#" }
             }
         },
         "union": {
@@ -101,9 +81,9 @@
             "type": "array",
             "uniqueItems": true,
             "items": {
-                "notes": [
-                    "Any schema except a union itself",
-                    "TODO"
+                "allOf": [
+                    { "$ref": "#" },
+                    { "not": { "$ref": "#/definitions/union" } }
                 ]
             }
         },
@@ -116,10 +96,6 @@
                 "name": { "$ref": "#/definitions/name" },
                 "namespace": { "$ref": "#/definitions/namespace" },
                 "size": {
-                    "notes": [
-                        "no minimum to size?",
-                        "deduction: must be strictly greater than 0"
-                    ],
                     "type": "integer",
                     "minimum": 0,
                     "exclusiveMinimum": true
@@ -145,6 +121,37 @@
                 "oneOf": [
                     { "$ref": "#/definitions/name" },
                     { "$ref": "#/definitions/namespace" } ]
+            }
+        },
+        "field": {
+            "description": "One field in a record",
+            "type": "object",
+            "required": [ "name", "type" ],
+            "properties": {
+                "name": { "$ref": "#/definitions/name" },
+                "doc": { "type": "string" },
+                "type": {
+                    "notes": [
+                        "spec says \"a JSON Object defining a schema or a JSON string naming a record definition\"",
+                        "what is a record definition??"
+                    ],
+                    "oneOf": [
+                        { "type": "string" },
+                        {
+                            "allOf": [
+                                { "$ref": "#" },
+                                { "not": { "$ref": "#/definitions/primitiveTypes" } }
+                            ]
+                        }
+                    ]
+                },
+                "default": {
+                    "description": "default value, depending on the type"
+                },
+                "order": {
+                    "enum": [ "ascending", "descending", "ignore" ]
+                },
+                "aliases": { "$ref": "#/definitions/aliases" }
             }
         }
     }
