@@ -29,8 +29,8 @@ to stumble upon.</p>
 <p>I use <a href="http://json-schema-validator.herokuapp.com">my toy site</a> to check both the
 validity of the schema syntax, and the validation of data against these schemas.</p>
 
-<p>This site uses of <a href="https://github.com/fge/json-schema-validator">my library</a>, which I
-am fully confident about. But I am not that confident about the schemas themselves.</p>
+<p>This site uses <a href="https://github.com/fge/json-schema-validator">my library</a>, which I am
+fully confident about. But I am not that confident about the schemas themselves.</p>
 
 <p>I <i>have</i> read the relevant specifications, but I certainly have missed some points in them,
 and as a result these schemas may not be accurate. Not to mention that some constraints expressed
