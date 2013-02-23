@@ -1,4 +1,5 @@
 {
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "avro-schema",
     "description": "JSON Schema for an Apache Avro schema, version 1.7.3",
     "oneOf": [
@@ -28,8 +29,8 @@
             "required": [ "type", "name", "fields" ],
             "properties": {
                 "type": { "enum": [ "record" ] },
-                "name": { "$ref": "#/definitions/name" },
-                "namespace": { "$ref": "#/definitions/namespace" },
+                "name": { "$ref": "#/definitions/nameOrNamespace" },
+                "nameOrNamespace": { "$ref": "#/definitions/namespace" },
                 "doc": { "type": "string" },
                 "aliases": { "$ref": "#/definitions/aliases" },
                 "fields": {
@@ -44,8 +45,8 @@
             "required": [ "type", "name", "symbols" ],
             "properties": {
                 "type": { "enum": [ "enum" ] },
-                "name": { "$ref": "#/definitions/name" },
-                "namespace": { "$ref": "#/definitions/namespace" },
+                "name": { "$ref": "#/definitions/nameOrNamespace" },
+                "nameOrNamespace": { "$ref": "#/definitions/namespace" },
                 "aliases": { "$ref": "#/definitions/aliases" },
                 "doc": { "type": "string" },
                 "symbols": {
@@ -93,8 +94,8 @@
             "required": [ "type", "name", "size" ],
             "properties": {
                 "type": { "enum": [ "fixed" ] },
-                "name": { "$ref": "#/definitions/name" },
-                "namespace": { "$ref": "#/definitions/namespace" },
+                "name": { "$ref": "#/definitions/nameOrNamespace" },
+                "nameOrNamespace": { "$ref": "#/definitions/namespace" },
                 "size": {
                     "type": "integer",
                     "minimum": 0,
@@ -103,48 +104,25 @@
                 "aliases": { "$ref": "#/definitions/aliases" }
             }
         },
-        "name": {
-            "description": "what a name can be",
+        "nameOrNamespace": {
+            "description": "what a nameOrNamespace can be",
             "type": "string",
-            "pattern": "^[A-Za-z_][A-Za-z0-9_]+$"
-        },
-        "namespace": {
-            "description": "what a namespace can be",
-            "type": "string",
-            "pattern": "^[A-Za-z_][A-Za-z0-9_](\\.[A-Za-z_][A-Za-z0-9_])+$"
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*$"
         },
         "aliases": {
             "type": "array",
             "minItems": 1,
             "uniqueItems": true,
-            "items": {
-                "oneOf": [
-                    { "$ref": "#/definitions/name" },
-                    { "$ref": "#/definitions/namespace" } ]
-            }
+            "items": {"$ref": "#/definitions/nameOrNamespace" }
         },
         "field": {
             "description": "One field in a record",
             "type": "object",
             "required": [ "name", "type" ],
             "properties": {
-                "name": { "$ref": "#/definitions/name" },
+                "name": { "$ref": "#/definitions/nameOrNamespace" },
                 "doc": { "type": "string" },
-                "type": {
-                    "notes": [
-                        "spec says \"a JSON Object defining a schema or a JSON string naming a record definition\"",
-                        "what is a record definition??"
-                    ],
-                    "oneOf": [
-                        { "type": "string" },
-                        {
-                            "allOf": [
-                                { "$ref": "#" },
-                                { "not": { "$ref": "#/definitions/primitiveTypes" } }
-                            ]
-                        }
-                    ]
-                },
+                "type": { "$ref": "#" },
                 "default": {
                     "description": "default value, depending on the type"
                 },
