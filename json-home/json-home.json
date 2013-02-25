@@ -7,7 +7,8 @@
         "resource": {
             "type": "object",
             "notes": [
-                "member names must be URIs, but this is unenforceable"
+                "member names must be URIs, but this is unenforceable",
+                "member values must be unique, but this is unenforceable"
             ],
             "additionalItems": {
                 "type": "object",
@@ -36,6 +37,9 @@
         },
         "hrefTemplate": {
             "description": "a href template resource",
+            "notes": [
+                "are additional properties allowed? Not said, here they are not"
+            ],
             "required": [ "href-template", "href-vars" ],
             "properties": {
                 "href-template": {
@@ -55,6 +59,77 @@
                 "hints": { "note": [ "TODO" ] }
             },
             "additionalProperties": false
+        },
+        "hints": {
+            "description": "A resource hint",
+            "type": "object",
+            "properties": {
+                "allow": {
+                    "description": "a list of HTTP methods",
+                    "notes": [
+                        "Not said whether elements should be unique, assuming they must",
+                        "Not said whether there should be at least one element, assuming there must be"
+                    ],
+                    "type": "array",
+                    "minItems": 1,
+                    "items": { "type": "string" },
+                    "uniqueItems": true
+                },
+                "representations": { "$ref": "#/definitions/mediaTypeArray" },
+                "accept-patch": {
+                    "notes": [ "spec says PATCH should be present in \"allow\", cannot enforce" ],
+                    "$ref": "#/definitions/mediaTypeArray"
+                },
+                "accept-post": {
+                    "notes": [ "spec says POST should be present in \"allow\", cannot enforce" ],
+                    "$ref": "#/definitions/mediaTypeArray"
+                },
+                "accept-put": {
+                    "notes": [ "spec says PUT should be present in \"allow\", cannot enforce" ],
+                    "$ref": "#/definitions/mediaTypeArray"
+                },
+                "accept-ranges": {
+                    "note": [ "TODO, see http://tools.ietf.org/html/draft-ietf-httpbis-p5-range-22" ],
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": "true",
+                    "items": { "type": "string" }
+                },
+                "prefer": {
+                    "note": [ "TODO, see http://tools.ietf.org/html/draft-snell-http-prefer-18" ],
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": "true",
+                    "items": { "type": "string" }
+                },
+                "docs": {
+                    "note": [ "spec says URI must be absolute, cannot enforce that" ],
+                    "type": "string",
+                    "format": "uri"
+                },
+                "precondition-req": {
+                    "note": [ "see http://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional-22" ],
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": "true",
+                    "items": { "enum": [ "etag", "last-modified" ] }
+                }
+            }
+        },
+        "mediaTypeArray": {
+            "description": "an array of media types",
+            "notes": [
+                "media-type format attribute does not exist",
+                "Not said whether elements should be unique, assuming they must",
+                "Not said whether there should be at least one element, assuming there must be"
+            ],
+            "type": "array",
+            "minItems": 1,
+            "items": {
+                "type": "string",
+                "format": "media-type"
+            },
+            "uniqueItems": true
         }
     }
 }
