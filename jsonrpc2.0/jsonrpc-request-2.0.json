@@ -24,7 +24,7 @@
                 "id": {
                     "type": [ "string", "number", "null" ],
                     "note": [
-                        "While allowed, null should be avoided: http://www.jsonrpc.org/specification#id1"
+                        "While allowed, null should be avoided: http://www.jsonrpc.org/specification#id1",
                         "While allowed, a number with a fractional part should be avoided: http://www.jsonrpc.org/specification#id2"
                     ]
                 },
