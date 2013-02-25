@@ -113,6 +113,20 @@
                     "minItems": 1,
                     "uniqueItems": "true",
                     "items": { "enum": [ "etag", "last-modified" ] }
+                },
+                "auth-req": {
+                    "note": [
+                        "see http://tools.ietf.org/html/draft-ietf-httpbis-p7-auth-22",
+                        "Not said whether elements should be unique, assuming they must",
+                        "Not said whether there should be at least one element, assuming there must be"
+                    ],
+                    "type": "array",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": { "$ref": "#/definitions/authReq" }
+                },
+                "status": {
+                    "enum": [ "deprecated", "gone" ]
                 }
             }
         },
@@ -130,6 +144,17 @@
                 "format": "media-type"
             },
             "uniqueItems": true
+        },
+        "authReq": {
+            "type": "object",
+            "required": [ "scheme" ],
+            "properties": {
+                "scheme": { "type": "string" },
+                "realms": {
+                    "type": "array",
+                    "items": { "type": "string" }
+                }
+            }
         }
     }
 }
