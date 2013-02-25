@@ -31,7 +31,7 @@
                     "type": "string",
                     "format": "uri"
                 },
-                "hints": { "note": [ "TODO" ] }
+                "hints": { "$ref": "#/definitions/hints" }
             },
             "additionalProperties": false
         },
@@ -56,7 +56,7 @@
                         "additionalProperties": { "type": "string" }
                     }
                 },
-                "hints": { "note": [ "TODO" ] }
+                "hints": { "$ref": "#/definitions/hints" }
             },
             "additionalProperties": false
         },
