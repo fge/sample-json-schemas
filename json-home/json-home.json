@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "JSON Home",
+    "type": "object",
+    "required": [ "resources" ],
+    "properties": {
+        "resource": {
+            "type": "object",
+            "notes": [
+                "member names must be URIs, but this is unenforceable"
+            ],
+            "additionalItems": {
+                "type": "object",
+                "oneOf": [
+                    { "$ref": "#/definitions/href" },
+                    { "$ref": "#/definitions/hrefTemplate" }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "href": {
+            "description": "a href resource",
+            "notes": [
+                "are additional properties allowed? Not said, here they are not"
+            ],
+            "required": [ "href" ],
+            "properties": {
+                "href": {
+                    "type": "string",
+                    "format": "uri"
+                },
+                "hints": { "note": [ "TODO" ] }
+            },
+            "additionalProperties": false
+        },
+        "hrefTemplate": {
+            "description": "a href template resource",
+            "required": [ "href-template", "href-vars" ],
+            "properties": {
+                "href-template": {
+                    "type": "string",
+                    "note": [ "must be a URI template, format below is not defined" ],
+                    "format": "uri-template"
+                },
+                "href-vars": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "note": [ "supposedly what RFC 6570 allows" ],
+                        "type": [ "string", "array", "object" ],
+                        "items": { "type": "string" },
+                        "additionalProperties": { "type": "string" }
+                    }
+                },
+                "hints": { "note": [ "TODO" ] }
+            },
+            "additionalProperties": false
+        }
+    }
+}

@@ -19,7 +19,9 @@ to stumble upon.</p>
     <li>JSON Patch (<a href="http://tools.ietf.org/html/draft-ietf-appsawg-json-patch-10">link to
     specification</a>);</li>
     <li>Avro Schema 1.7.3 (<a href="http://avro.apache.org/docs/current/spec.html">link to
-    specification</a>).</li>
+    specification</a>);</li>
+    <li>JSON Home (<a href="http://tools.ietf.org/html/draft-nottingham-json-home-02">link to
+    specification</a>) (<b>INCOMPLETE</b>).</li>
 </ul>
 
 <p>Note: these schemas are probably not perfect. See below.</p>
