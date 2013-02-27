@@ -52,7 +52,11 @@
                 "symbols": {
                     "type": "array",
                     "minItems": 1,
-                    "items": { "type": "string" },
+                    "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^(?![_\\d])\\w+$"
+                    },
                     "uniqueItems": true
                 }
             }
