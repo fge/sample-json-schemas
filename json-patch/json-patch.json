@@ -3,9 +3,7 @@
     "description": "A JSON Schema describing a JSON Patch",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "notes": [
-        "Defines a \"json-pointer\" format attribute",
-        "Only required members are accounted for, other members are ignored",
-        "FIXME: are zero-length patches allowed?"
+        "Only required members are accounted for, other members are ignored"
     ],
     "type": "array",
     "items": {
@@ -16,16 +14,17 @@
                 "type": "object",
                 "required": [ "op", "path" ],
                 "properties": {
-                    "path": {
-                        "type": "string",
-                        "format": "json-pointer"
-                    }
+                    "path": { "$ref": "#/definitions/jsonPointer" }
                 }
             },
             { "$ref": "#/definitions/oneOperation" }
         ]
     },
     "definitions": {
+        "jsonPointer": {
+            "type": "string",
+            "pattern": "^(/[^/~]*(~[01][^/~]*)*)*$"
+        },
         "add": {
             "description": "add operation. Value can be any JSON value.",
             "properties": { "op": { "enum": [ "add" ] } },
@@ -44,7 +43,7 @@
             "description": "move operation. \"from\" is a JSON Pointer.",
             "properties": {
                 "op": { "enum": [ "move" ] },
-                "from": { "type": "string", "format": "json-pointer" }
+                "from": { "$ref": "#/definitions/jsonPointer" }
             },
             "required": [ "from" ]
         },
@@ -52,7 +51,7 @@
             "description": "copy operation. \"from\" is a JSON Pointer.",
             "properties": {
                 "op": { "enum": [ "copy" ] },
-                "from": { "type": "string", "format": "json-pointer" }
+                "from": { "$ref": "#/definitions/jsonPointer" }
             },
             "required": [ "from" ]
         },
