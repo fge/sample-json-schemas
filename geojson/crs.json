@@ -29,7 +29,7 @@
                 }
             }
         },
-        "linkObject": {
+        "linkedObject": {
             "type": "object",
             "required": [ "href" ],
             "properties": {
@@ -44,7 +44,7 @@
                 }
             }
         },
-        "linkedCRS": {
+        "linkedCrs": {
             "properties": {
                 "type": { "enum": [ "link" ] },
                 "properties": { "$ref": "#/definitions/linkedObject" }
