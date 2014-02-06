@@ -15,54 +15,48 @@
         }
     ],
     "definitions": {
-        "common": {
-            "required": [ "id", "jsonrpc" ],
-            "not": {
-                "description": "cannot have result and error at the same time",
-                "required": [ "result", "error" ]
-            },
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": [ "string", "integer", "null" ],
-                    "note": [
-                        "spec says a number which should not contain a fractional part",
-                        "We choose integer here, but this is unenforceable with some languages"
-                    ]
-                },
-                "jsonrpc": { "enum": [ "2.0" ] }
-            }
-        },
-        "success": {
-            "description": "A success. The result member is then required and can be anything.",
-            "allOf": [
-                { "$ref": "#/definitions/common" },
-                { "required": [ "result" ] }
+        "id": {
+            "type": [ "string", "integer", "null" ],
+            "note": [
+                "spec says a number which should not contain a fractional part",
+                "We choose integer here, but this is unenforceable with some languages"
             ]
         },
+        "jsonrpc": { "enum": [ "2.0" ] },
+        "success": {
+            "type": "object",
+            "description": "A success. The result member is then required and can be anything.",
+            "required": [ "id", "jsonrpc", "result" ],
+            "additionalProperties": false,
+            "properties": {
+                "id": { "$ref": "#/definitions/id" },
+                "jsonrpc": { "$ref": "#/definitions/jsonrpc" },
+                "result": {}
+            }
+        },
         "error": {
-            "allOf" : [
-                { "$ref": "#/definitions/common" },
-                {
-                    "required": [ "error" ],
+            "type": "object",
+            "required": [ "id", "jsonrpc", "error" ],
+            "additionalProperties": false,
+            "properties": {
+                "id": { "$ref": "#/definitions/id" },
+                "jsonrpc": { "$ref": "#/definitions/jsonrpc" },
+                "error": {
+                    "type": "object",
+                    "required": [ "code", "message" ],
+                    "additionalProperties": false,
                     "properties": {
-                        "error": {
-                            "type": "object",
-                            "required": [ "code", "message" ],
-                            "properties": {
-                                "code": {
-                                    "type": "integer",
-                                    "note": [ "unenforceable in some languages" ]
-                                },
-                                "message": { "type": "string" },
-                                "data": {
-                                    "description": "optional, can be anything"
-                                }
-                            }
+                        "code": {
+                            "type": "integer",
+                            "note": [ "unenforceable in some languages" ]
+                        },
+                        "message": { "type": "string" },
+                        "data": {
+                            "description": "optional, can be anything"
                         }
                     }
                 }
-            ]
+            }
         }
     }
 }
