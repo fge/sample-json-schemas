@@ -16,11 +16,6 @@
     ],
     "definitions": {
         "common": {
-            "required": [ "id", "jsonrpc" ],
-            "not": {
-                "description": "cannot have result and error at the same time",
-                "required": [ "result", "error" ]
-            },
             "type": "object",
             "properties": {
                 "id": {
@@ -37,14 +32,18 @@
             "description": "A success. The result member is then required and can be anything.",
             "allOf": [
                 { "$ref": "#/definitions/common" },
-                { "required": [ "result" ] }
+                {
+                    "required": [ "id", "jsonrpc", "result" ],
+                    "additionalProperties": false
+                }
             ]
         },
         "error": {
             "allOf" : [
                 { "$ref": "#/definitions/common" },
                 {
-                    "required": [ "error" ],
+                    "required": [ "id", "jsonrpc", "error" ],
+                    "additionalProperties": false,
                     "properties": {
                         "error": {
                             "type": "object",
