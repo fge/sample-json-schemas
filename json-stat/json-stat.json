@@ -1,0 +1,153 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Specification for JSON Stat (URL: http://json-stat.org/format/",
+    "type": "object",
+    "minProperties": 1,
+    "additionalProperties": { "$ref": "#/definitions/dataset" },
+    "definitions": {
+        "dataset": {
+            "type": "object",
+            "required": [ "value", "dimension" ],
+            "properties": {
+                "label": { "type": "string" },
+                "value": { "$ref": "#/definitions/value" },
+                "status": { "$ref": "#/definitions/status" },
+                "dimension": { "$ref": "#/definitions/dimension" },
+                "updated": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "source": { "type": "string" }
+            }
+        },
+        "value": {
+            "note": [ "Are 0-length values possible?" ],
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/valueElement" }
+                },
+                {
+                    "type": "object",
+                    "additionalProperties": { "$ref": "#/definitions/valueElement" }
+                }
+            ]
+
+        },
+        "valueElement": {
+            "type": [ "number", "null" ],
+            "note": [ "unsure whether other types are allowed" ]
+        },
+        "status": {
+            "note": [
+                "unsure whether a status element may be something else than a string",
+                "minItems is a guess (so is minProperties)",
+                "empty strings are allowed currently"
+            ],
+            "type": [ "array", "string", "object" ],
+            "minItems": 1,
+            "items": { "type": "string" },
+            "minProperties": 1,
+            "additionalProperties": { "type": "string" }
+        },
+        "dimension": {
+            "type": "object",
+            "required": [ "id", "size" ],
+            "properties": {
+                "id": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "note": [
+                        "unsure whether 0-length is allowed (it currently is)",
+                        "unsure whether empty strings are allowed (they currently are)"
+                    ]
+                },
+                "size": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "note": [ "minimum is a guess (a negative size doesn't seem to make sense anyway) " ]
+                    },
+                    "note": [
+                        "unsure whether 0-length is allowed (it currently is)"
+                    ]
+                },
+                "role": { "$ref": "#/definitions/role" }
+            },
+            "additionalProperties": { "$ref": "#/definitions/dimensionID" }
+        },
+        "role": {
+            "type": "object",
+            "properties": {
+                "time": { "$ref": "#/definitions/stringArray" },
+                "geo": { "$ref": "#/definitions/stringArray" },
+                "metric": { "$ref": "#/definitions/stringArray" }
+            },
+            "additionalProperties": false
+        },
+        "stringArray": {
+            "type": "array",
+            "items": { "type": "string" },
+            "note": [
+                "unsure whether 0-length is allowed (it currently is)"
+            ]
+        },
+        "dimensionID": {
+            "type": "object",
+            "note": [
+                "spec says \"name of this object must be one of the strings in the id array\", unenforceable with JSON Schema"
+            ],
+            "required": [ "category" ],
+            "properties": {
+                "label": { "type": "string" },
+                "category": {
+                    "type": "object",
+                    "properties": {
+                        "label": {
+                            "type": "object",
+                            "additionalProperties": { "type": "string" }
+                        },
+                        "index": {
+                            "oneOf": [
+                                { "$ref": "#/definitions/stringArray" },
+                                {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    }
+                                }
+                            ]
+                        },
+                        "child": { "$ref": "#/definitions/stringArray" },
+                        "coordinates": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "array",
+                                "note": [ "two-element array with longitude/latitude" ],
+                                "items": [
+                                    {
+                                        "type": "number",
+                                        "minimum": -180,
+                                        "maximum": 180
+                                    },
+                                    {
+                                        "type": "number",
+                                        "minimum": -90,
+                                        "maximum": 90
+                                    }
+                                ]
+                            }
+                        },
+                        "unit": {
+                            "type": "object",
+                            "additionalProperties": { "type": "object" }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
