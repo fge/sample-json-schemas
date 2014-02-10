@@ -33,6 +33,11 @@
             "allOf": [
                 { "$ref": "#/definitions/common" },
                 {
+                    "properties": {
+                        "id": {},
+                        "jsonrpc": {},
+                        "result": {}
+                    },
                     "required": [ "id", "jsonrpc", "result" ],
                     "additionalProperties": false
                 }
@@ -45,6 +50,8 @@
                     "required": [ "id", "jsonrpc", "error" ],
                     "additionalProperties": false,
                     "properties": {
+                        "id": {},
+                        "jsonrpc": {},
                         "error": {
                             "type": "object",
                             "required": [ "code", "message" ],
