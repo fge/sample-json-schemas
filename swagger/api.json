@@ -1,0 +1,41 @@
+{
+    "TODO": "not finished",
+    "id": "http://wordnik.github.io/schemas/api.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required": [ "swaggerVersion", "basePath", "apis" ],
+    "properties": {
+        "swaggerVersion": { "enum": [ "1.0", "1.1", "1.2" ] },
+        "apiVersion": { "type": "string" },
+        "basePath": { "type": "string", "format": "uri" },
+        "resourcePath": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^/"
+        },
+        "apis": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/apiObject" }
+        }
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "apiObject": {
+            "type": "object",
+            "required": [ "path", "operations" ],
+            "properties": {
+                "path": { "type": "string", "format": "uri-template" },
+                "description": { "type": "string" },
+                "operations": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/operationObject" }
+                }
+            },
+            "additionalProperties": false
+        },
+        "operationObject": {
+            "type": "object",
+            "required": [ "method", "nickname", "parameters" ]
+        }
+    }
+}
