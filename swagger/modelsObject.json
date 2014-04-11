@@ -73,11 +73,46 @@
                 "uniqueItems": { "type": "boolean" }
             },
             "additionalProperties": false,
+            "oneOf": [
+                {
+                    "properties": {
+                        "type": { "enum": [ "array" ] }
+                    },
+                    "required": [ "items" ]
+                },
+                {
+                    "properties": {
+                        "type": {
+                            "not": { "enum": [ "array" ] }
+                        }
+                    }
+                }
+            ],
             "dependencies": {
                 "format": { "$ref": "#/definitions/formattedPrimitive" },
                 "enum": {
                     "properties": {
                         "type": { "enum": [ "string" ] }
+                    }
+                },
+                "minimum": {
+                    "properties": {
+                        "type": { "enum": [ "integer", "number" ] }
+                    }
+                },
+                "maximum": {
+                    "properties": {
+                        "type": { "enum": [ "integer", "number" ] }
+                    }
+                },
+                "uniqueItems": {
+                    "properties": {
+                        "type": { "enum": [ "array" ] }
+                    }
+                },
+                "defaultValue": {
+                    "properties": {
+                        "type": { "enum": [ "integer", "number", "string", "boolean" ] }
                     }
                 }
             }
