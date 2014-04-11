@@ -7,7 +7,11 @@
     "properties": {
         "swaggerVersion": { "enum": [ "1.0", "1.1", "1.2" ] },
         "apiVersion": { "type": "string" },
-        "basePath": { "type": "string", "format": "uri" },
+        "basePath": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^http://"
+        },
         "resourcePath": {
             "type": "string",
             "format": "uri",

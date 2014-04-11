@@ -1,0 +1,124 @@
+{
+    "id": "http://wordnik.github.io/schemas/modelObject.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required": [ "id", "properties" ],
+    "properties": {
+        "id": { "type": "string" },
+        "description": { "type": "string" },
+        "properties": {
+            "type": "object",
+            "additionalProperties": { "$ref": "#/definitions/propertyObject" }
+        },
+        "subTypes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "uniqueItems": true
+        },
+        "discriminator": { "type": "string" }
+    },
+    "dependencies": {
+        "subTypes": [ "discriminator" ]
+    },
+    "additionalProperties": false,
+    "definitions": {
+        "propertyObject": {
+            "allOf": [
+                {
+                    "additionalProperties": {
+                        "not": { "$ref": "#/definitions/propertyObject" }
+                    }
+                },
+                {
+                    "$ref": "#/definitions/dataTypeField"
+                }
+            ]
+        },
+        "dataTypeField": {
+            "oneOf": [
+                { "$ref": "#/definitions/refField" },
+                { "$ref": "#/definitions/dataType" }
+            ]
+        },
+        "refField": {
+            "type": "object",
+            "required": [ "$ref" ],
+            "properties": {
+                "$ref": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "dataType": {
+            "type": "object",
+            "required": [ "type" ],
+            "properties": {
+                "type": { "type": "string" },
+                "format": { "type": "string" },
+                "defaultValue": {},
+                "enum": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": { "type": "string" },
+                    "uniqueItems": true
+                },
+                "minimum": {
+                    "type": "string",
+                    "format": "number"
+                },
+                "maximum": {
+                    "type": "string",
+                    "format": "number"
+                },
+                "items": { "$ref": "#/definitions/itemsObject" },
+                "uniqueItems": { "type": "boolean" }
+            },
+            "additionalProperties": false,
+            "dependencies": {
+                "format": { "$ref": "#/definitions/formattedPrimitive" }
+            }
+        },
+        "itemsObject": {
+            "oneOf": [
+                { "$ref": "#/definitions/refField" },
+                {
+                    "type": "object",
+                    "required": [ "type" ],
+                    "properties": {
+                        "type": { "type": "string" },
+                        "format": { "type": "string" }
+                    },
+                    "dependencies": {
+                        "format": { "$ref": "#/definitions/formattedPrimitive" }
+                    },
+                    "additionalProperties": false,
+                    "not": {
+                        "properties": { "type": { "enum": [ "array" ] } }
+                    }
+                }
+            ]
+        },
+        "formattedPrimitive": {
+            "oneOf": [
+                {
+                    "properties": {
+                        "type": { "enum": [ "integer" ] },
+                        "format": { "enum": [ "int32", "int64" ] }
+                    }
+                },
+                {
+                    "properties": {
+                        "type": { "enum": [ "number" ] },
+                        "format": { "enum": [ "float", "double" ] }
+                    }
+                },
+                {
+                    "properties": {
+                        "type": { "enum": [ "string" ] },
+                        "format": { "enum": [ "byte", "date", "date-time" ] }
+                    }
+                }
+            ]
+        }
+    }
+}
+
