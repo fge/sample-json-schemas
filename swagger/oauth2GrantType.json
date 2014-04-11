@@ -1,1 +1,57 @@
-"TODO"
+{
+    "id": "http://wordnik.github.io/schemas/infoObject.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "minProperties": 1,
+    "properties": {
+        "implicit": { "$ref": "#/definitions/implicit" },
+        "authorization_code": { "$ref": "#/definitions/authorizationCode" }
+    },
+    "definitions": {
+        "implicit": {
+            "type": "object",
+            "required": [ "loginEndPoint" ],
+            "properties": {
+                "loginEndPoint": { "$ref": "#/definitions/loginEndPoint" },
+                "tokenName": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "authorizationCode": {
+            "type": "object",
+            "required": [ "tokenEndpoint", "tokenRequestEndpoint" ],
+            "properties": {
+                "tokenEndpoint": { "$ref": "#/definitions/tokenEndpoint" },
+                "tokenRequestEndpoint": { "$ref": "#/definitions/tokenRequestEndpoint" }
+            },
+            "additionalProperties": false
+        },
+        "loginEndPoint": {
+            "type": "object",
+            "required": [ "url" ],
+            "properties": {
+                "url": { "type": "string", "format": "uri" }
+            },
+            "additionalProperties": false
+        },
+        "tokenEndpoint": {
+            "type": "object",
+            "required": [ "url" ],
+            "properties": {
+                "url": { "type": "string", "format": "uri" },
+                "tokenName": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "tokenRequestEndpoint": {
+            "type": "object",
+            "required": [ "url" ],
+            "properties": {
+                "url": { "type": "string", "format": "uri" },
+                "clientIdName": { "type": "string" },
+                "clientSecretName": { "type": "string" }
+            },
+            "additionalProperties": false
+        }
+    }
+}
