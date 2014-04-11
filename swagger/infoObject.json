@@ -1,0 +1,15 @@
+{
+    "id": "http://wordnik.github.io/schemas/infoObject.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required": [ "title", "description" ],
+    "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "termsOfServiceURL": { "type": "string", "format": "uri" },
+        "contact": { "type": "string", "format": "email" },
+        "license": { "type": "string" },
+        "licenseURL": { "type": "string", "format": "uri" }
+    },
+    "additionalProperties": false
+}

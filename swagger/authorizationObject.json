@@ -1,0 +1,55 @@
+{
+    "id": "http://wordnik.github.io/schemas/infoObject.json#",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "required": [ "type" ],
+    "oneOf": [
+        {
+            "$ref": "#/definitions/basicAuth"
+        },
+        {
+            "$ref": "#/definitions/apiKey"
+        },
+        {
+            "$ref": "#/definitions/oauth2"
+        }
+    ],
+    "definitions": {
+        "basicAuth": {
+            "properties": {
+                "type": { "enum": [ "basicAuth" ] }
+            },
+            "additionalProperties": false
+        },
+        "apiKey": {
+            "required": [ "passAs", "keyname" ],
+            "properties": {
+                "type": { "enum": [ "apiKey" ] },
+                "passAs": { "type": "string" },
+                "keyname": { "type": "string" }
+            },
+            "additionalProperties": false
+        },
+        "oauth2": {
+            "required": [ "grantTypes" ],
+            "properties": {
+                "type": { "enum": [ "oauth2" ] },
+                "scopes": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/oauth2Scope" }
+                },
+                "grantTypes": { "$ref": "oauth2GrantType.json#" }
+            }
+        },
+        "oauth2Scope": {
+            "type": "object",
+            "required": [ "scope" ],
+            "properties": {
+                "scope": { "type": "string" },
+                "description": { "type": "string" }
+            },
+            "additionalProperties": false
+        }
+    }
+}
+
