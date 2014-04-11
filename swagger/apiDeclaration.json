@@ -35,14 +35,10 @@
                 "description": { "type": "string" },
                 "operations": {
                     "type": "array",
-                    "items": { "$ref": "#/definitions/operationObject" }
+                    "items": { "$ref": "operationObject.json#" }
                 }
             },
             "additionalProperties": false
-        },
-        "operationObject": {
-            "type": "object",
-            "required": [ "method", "nickname", "parameters" ]
         }
     }
 }
