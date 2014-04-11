@@ -24,6 +24,8 @@ to stumble upon.</p>
     specification</a>);</li>
     <li>JSON Stat (<a href="http://json-stat.org/format/">link to
     specification</a>).</li>
+    <li>Swagger 1.2 (<a href="https://github.com/wordnik/swagger-spec/blob/master/versions/1.2.md">link
+    to specification</a>).</li>
 </ul>
 
 <p>Note: these schemas are probably not perfect. See below.</p>
