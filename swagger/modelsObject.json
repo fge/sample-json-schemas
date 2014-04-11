@@ -1,5 +1,5 @@
 {
-    "id": "http://wordnik.github.io/schemas/modelObject.json#",
+    "id": "http://wordnik.github.io/schemas/modelsObject.json#",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "required": [ "id", "properties" ],

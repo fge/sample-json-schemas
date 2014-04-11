@@ -1,6 +1,5 @@
 {
-    "TODO": "not finished",
-    "id": "http://wordnik.github.io/schemas/api.json#",
+    "id": "http://wordnik.github.io/schemas/apiDeclaration.json#",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "required": [ "swaggerVersion", "basePath", "apis" ],
@@ -20,7 +19,11 @@
         "apis": {
             "type": "array",
             "items": { "$ref": "#/definitions/apiObject" }
-        }
+        },
+        "models": { "$ref": "modelsObject.json#" },
+        "produces": { "$ref": "#/definitions/mimeTypeArray" },
+        "consumes": { "$ref": "#/definitions/mimeTypeArray" },
+        "authorizations": { "$ref": "authorizationObject.json#" }
     },
     "additionalProperties": false,
     "definitions": {
