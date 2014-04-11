@@ -1,5 +1,5 @@
 {
-    "id": "http://wordnik.github.io/schemas/infoObject.json#",
+    "id": "http://wordnik.github.io/schemas/authorizationObject.json#",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "required": [ "type" ],
@@ -31,6 +31,7 @@
             "additionalProperties": false
         },
         "oauth2": {
+            "type": "object",
             "required": [ "grantTypes" ],
             "properties": {
                 "type": { "enum": [ "oauth2" ] },
@@ -39,7 +40,8 @@
                     "items": { "$ref": "#/definitions/oauth2Scope" }
                 },
                 "grantTypes": { "$ref": "oauth2GrantType.json#" }
-            }
+            },
+            "additionalProperties": false
         },
         "oauth2Scope": {
             "type": "object",

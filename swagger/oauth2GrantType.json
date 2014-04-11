@@ -1,5 +1,5 @@
 {
-    "id": "http://wordnik.github.io/schemas/infoObject.json#",
+    "id": "http://wordnik.github.io/schemas/oauth2GrantType.json#",
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "minProperties": 1,
