@@ -74,7 +74,12 @@
             },
             "additionalProperties": false,
             "dependencies": {
-                "format": { "$ref": "#/definitions/formattedPrimitive" }
+                "format": { "$ref": "#/definitions/formattedPrimitive" },
+                "enum": {
+                    "properties": {
+                        "type": { "enum": [ "string" ] }
+                    }
+                }
             }
         },
         "itemsObject": {
