@@ -25,7 +25,7 @@
             "required": [ "passAs", "keyname" ],
             "properties": {
                 "type": { "enum": [ "apiKey" ] },
-                "passAs": { "type": "string" },
+                "passAs": { "enum": [ "header", "query" ] },
                 "keyname": { "type": "string" }
             },
             "additionalProperties": false
