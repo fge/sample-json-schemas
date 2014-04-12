@@ -10,9 +10,9 @@
     "definitions": {
         "implicit": {
             "type": "object",
-            "required": [ "loginEndPoint" ],
+            "required": [ "loginEndpoint" ],
             "properties": {
-                "loginEndPoint": { "$ref": "#/definitions/loginEndPoint" },
+                "loginEndpoint": { "$ref": "#/definitions/loginEndpoint" },
                 "tokenName": { "type": "string" }
             },
             "additionalProperties": false
@@ -26,7 +26,7 @@
             },
             "additionalProperties": false
         },
-        "loginEndPoint": {
+        "loginEndpoint": {
             "type": "object",
             "required": [ "url" ],
             "properties": {
