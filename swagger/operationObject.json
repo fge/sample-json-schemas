@@ -14,7 +14,15 @@
                     "type": "string",
                     "pattern": "^[a-zA-Z0-9_]+$"
                 },
-                "authorizations": { "$ref": "authorizationObject.json#" },
+                "authorizations": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "authorizationObject.json#/definitions/oauth2Scope"
+                        }
+                    }
+                },
                 "parameters": {
                     "type": "array",
                     "items": { "$ref": "parameterObject.json#" }

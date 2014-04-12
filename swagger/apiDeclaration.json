@@ -39,6 +39,13 @@
                 }
             },
             "additionalProperties": false
+        },
+        "mimeTypeArray": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "format": "mime-type"
+            }
         }
     }
 }
