@@ -4,7 +4,7 @@
     "type": "object",
     "required": [ "swaggerVersion", "apis" ],
     "properties": {
-        "swaggerVersion": { "enum": [ "1.0", "1.1", "1.2" ] },
+        "swaggerVersion": { "enum": [ "1.2" ] },
         "apis": {
             "type": "array",
             "items": { "$ref": "resourceObject.json#" }
