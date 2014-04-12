@@ -20,7 +20,12 @@
             "type": "array",
             "items": { "$ref": "#/definitions/apiObject" }
         },
-        "models": { "$ref": "modelsObject.json#" },
+        "models": {
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "modelsObject.json#"
+            }
+        },
         "produces": { "$ref": "#/definitions/mimeTypeArray" },
         "consumes": { "$ref": "#/definitions/mimeTypeArray" },
         "authorizations": { "$ref": "authorizationObject.json#" }

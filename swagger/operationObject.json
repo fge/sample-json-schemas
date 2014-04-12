@@ -48,12 +48,10 @@
             }
         },
         "rfc2616section10": {
-            "note": "4xx, 5xx not included",
-            "enum": [
-                100, 101,
-                200, 201, 202, 203, 204, 205, 206,
-                300, 301, 302, 303, 304, 305, 307
-            ]
+            "type": "integer",
+            "minimum": 100,
+            "maximum": 600,
+            "exclusiveMaximum": true
         },
         "mimeTypeArray": {
             "type": "array",
