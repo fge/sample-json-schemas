@@ -20,142 +20,14 @@
     "dependencies": {
         "subTypes": [ "discriminator" ]
     },
-    "additionalProperties": false,
     "definitions": {
         "propertyObject": {
             "allOf": [
                 {
-                    "additionalProperties": {
-                        "not": { "$ref": "#/definitions/propertyObject" }
-                    }
+                    "not": { "$ref": "#" }
                 },
                 {
-                    "$ref": "#/definitions/dataTypeField"
-                }
-            ]
-        },
-        "dataTypeField": {
-            "oneOf": [
-                { "$ref": "#/definitions/refField" },
-                { "$ref": "#/definitions/dataType" }
-            ]
-        },
-        "refField": {
-            "type": "object",
-            "required": [ "$ref" ],
-            "properties": {
-                "$ref": { "type": "string" }
-            },
-            "additionalProperties": false
-        },
-        "dataType": {
-            "type": "object",
-            "required": [ "type" ],
-            "properties": {
-                "type": { "type": "string" },
-                "format": { "type": "string" },
-                "defaultValue": {},
-                "enum": {
-                    "type": "array",
-                    "minItems": 1,
-                    "items": { "type": "string" },
-                    "uniqueItems": true
-                },
-                "minimum": {
-                    "type": "string",
-                    "format": "number"
-                },
-                "maximum": {
-                    "type": "string",
-                    "format": "number"
-                },
-                "items": { "$ref": "#/definitions/itemsObject" },
-                "uniqueItems": { "type": "boolean" }
-            },
-            "additionalProperties": false,
-            "oneOf": [
-                {
-                    "properties": {
-                        "type": { "enum": [ "array" ] }
-                    },
-                    "required": [ "items" ]
-                },
-                {
-                    "properties": {
-                        "type": {
-                            "not": { "enum": [ "array" ] }
-                        }
-                    }
-                }
-            ],
-            "dependencies": {
-                "format": { "$ref": "#/definitions/formattedPrimitive" },
-                "enum": {
-                    "properties": {
-                        "type": { "enum": [ "string" ] }
-                    }
-                },
-                "minimum": {
-                    "properties": {
-                        "type": { "enum": [ "integer", "number" ] }
-                    }
-                },
-                "maximum": {
-                    "properties": {
-                        "type": { "enum": [ "integer", "number" ] }
-                    }
-                },
-                "uniqueItems": {
-                    "properties": {
-                        "type": { "enum": [ "array" ] }
-                    }
-                },
-                "defaultValue": {
-                    "properties": {
-                        "type": { "enum": [ "integer", "number", "string", "boolean" ] }
-                    }
-                }
-            }
-        },
-        "itemsObject": {
-            "oneOf": [
-                { "$ref": "#/definitions/refField" },
-                {
-                    "type": "object",
-                    "required": [ "type" ],
-                    "properties": {
-                        "type": { "type": "string" },
-                        "format": { "type": "string" }
-                    },
-                    "dependencies": {
-                        "format": { "$ref": "#/definitions/formattedPrimitive" }
-                    },
-                    "additionalProperties": false,
-                    "not": {
-                        "properties": { "type": { "enum": [ "array" ] } }
-                    }
-                }
-            ]
-        },
-        "formattedPrimitive": {
-            "oneOf": [
-                {
-                    "properties": {
-                        "type": { "enum": [ "integer" ] },
-                        "format": { "enum": [ "int32", "int64" ] }
-                    }
-                },
-                {
-                    "properties": {
-                        "type": { "enum": [ "number" ] },
-                        "format": { "enum": [ "float", "double" ] }
-                    }
-                },
-                {
-                    "properties": {
-                        "type": { "enum": [ "string" ] },
-                        "format": { "enum": [ "byte", "date", "date-time" ] }
-                    }
+                    "$ref": "dataTypeBase.json#"
                 }
             ]
         }
