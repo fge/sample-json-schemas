@@ -61,14 +61,14 @@
             "type": "array",
             "minItems": 2,
             "items": [ {
-                "type": "number"
+                "type": "number",
                 "minimum": 0,
-                "maximum": 90,
+                "maximum": 90
                 
             }, {
-                "type": "number"
+                "type": "number",
                 "minimum": -180,
-                "maximum": +180,
+                "maximum": 180
             } ],
             "additionalItems": false
         },
