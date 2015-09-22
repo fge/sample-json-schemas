@@ -60,7 +60,16 @@
             "description": "A single position",
             "type": "array",
             "minItems": 2,
-            "items": [ { "type": "number" }, { "type": "number" } ],
+            "items": [ {
+                "type": "number",
+                "minimum": -90,
+                "maximum": 90
+                
+            }, {
+                "type": "number",
+                "minimum": -180,
+                "maximum": 180
+            } ],
             "additionalItems": false
         },
         "positionArray": {
