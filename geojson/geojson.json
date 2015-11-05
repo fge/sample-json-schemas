@@ -41,7 +41,7 @@
                     ]
                 },
                 "properties": { "type": [ "object", "null" ] },
-                "id": { "FIXME": "may be there, type not known (string? number?)" }
+                "id": {"type": [ "string", "number" ]}
             }
         },
         "featureCollection": {
