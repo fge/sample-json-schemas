@@ -60,8 +60,7 @@
             "description": "A single position",
             "type": "array",
             "minItems": 2,
-            "items": [ { "type": "number" }, { "type": "number" } ],
-            "additionalItems": false
+            "items": { "type": "number" }
         },
         "positionArray": {
             "description": "An array of positions",
